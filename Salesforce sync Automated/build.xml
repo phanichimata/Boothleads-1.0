@@ -1,0 +1,22 @@
+<project name="Shivasoft ANT Tutorial" default="deployCode" basedir="." xmlns:sf="antlib:com.salesforce">
+    <property file="build.properties"/>
+    <property environment="env"/>
+    <!-- Shows deploying code & running tests for code in directory -->
+    <target name="deployCode"  >
+      <sf:deploy username="${sf.username}" password="${sf.password}" serverurl="${sf.serverurl}" deployRoot="src">
+        <runTest>Sample</runTest>
+      </sf:deploy>
+    </target>
+    
+	 <target name="TestSample">
+      <!-- Upload the contents of the "codepkg" package, running all tests -->
+      <sf:deploy username="${sf.username}" password="${sf.password}" serverurl="${sf.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="src" runAllTests="false" logType="Debugonly"/>
+    </target>
+	
+	
+	 <!-- Shows removing code; only succeeds if done after deployCode -->
+    <target name="undeployCode">
+      <sf:deploy username="${sf.username}" password="${sf.password}" serverurl="${sf.serverurl}" deployRoot="removecodepkg"/>
+    </target>
+	
+</project>
